@@ -3,6 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from "angular-bootstrap-md/index";
+import { CashDataService } from './services/cash-data.service';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import { MDBBootstrapModule } from "angular-bootstrap-md/index";
     MDBBootstrapModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [],
+  providers: [
+    CashDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
