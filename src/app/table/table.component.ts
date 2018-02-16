@@ -124,7 +124,9 @@ export class TableComponent implements OnInit{
     if (!this.cashRecord.cash && !this.cashRecord.description)
       return;
 
-    this.cashRecord.id ? this.editItem(this.cashRecord) : this.addItem(this.cashRecord);
+    let tmpCash: Cash = new Cash(this.cashRecord.id, this.cashRecord.cash, this.cashRecord.description);
+
+    tmpCash.id ? this.editItem(tmpCash) : this.addItem(tmpCash);
 
     this.modal.hide();
     this.recalculateTotal();
