@@ -1,0 +1,78 @@
+<div class="cash-table">
+    <table class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>id <i class="fa fa-sort-down" aria-hidden="true"></i></th>
+                <th>Средства <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th>Комментарий</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of itemsPerPage">
+                <td id="tableId"   (click)="showEditModal(item)">{{item.id}}</td>
+                <td id="tableCash">{{item.cash}}</td>
+                <td id="tableDesc">{{item.description}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--Bottom Table UI-->
+<div class="d-flex justify-content-between">
+
+    <button class="segmento-white-btn mt-4" (click)="showModal()">Добавить</button>
+
+    <!--Pagination -->
+    <nav class="my-4 pt-2">
+        <ul *ngIf="pagesArray.length > 1" class="pagination pagination-circle pg-red mb-0">
+
+            <!--Numbers-->
+            <li *ngFor="let page of pagesArray; index as i;" class="page-item"
+                [ngClass]="currentPage === i ? 'active' : ''" (click)="changePage(i)"><a class="page-link">{{page}}</a></li>
+
+        </ul>
+    </nav>
+    <!--/Pagination -->
+
+</div>
+<!--Bottom Table UI-->
+
+<!--Edit modal dialog-->
+<div mdbModal #cashModal="mdb-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myCashModalLabel"
+              aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form (ngSubmit)="onSubmit()" #cashform="ngForm" novalidate>
+
+              <h1 *ngIf="cashRecord.id">Запись #{{cashRecord.id}}</h1>
+              <h1 *ngIf="!cashRecord.id">Новая запись</h1>
+
+              <div class="popup">
+                <input type="number" class="mt-4 form-control" #cash="ngModel" name="cash" [(ngModel)]="cashRecord.cash"
+                          step=0.1 customMin="-1000" customMax="1000" customZero required>
+                <span class="popuptext show" id="myPopup"
+                          *ngIf="cash.invalid && (cash.dirty || cash.touched)">
+                  Следует вписать число от -1000 до 1000 и не 0.
+                </span>
+              </div>
+
+              <div class="popup">
+                <textarea maxlength="512" class="modal-des mt-2 form-control" [(ngModel)]="cashRecord.description"
+                          name="description" #desc="ngModel" customText='^[а-яА-ЯёЁa-zA-Z0-9!?";:.,\s]+$' required></textarea>
+                <span class="popuptext show"  id="myPopup2"
+                      *ngIf="desc.invalid && (desc.dirty || desc.touched)">
+                  Введите описание используя только буквы, цифры и знаки препинания.
+                </span>
+              </div>
+
+              <div class="d-flex justify-content-between mt-4">
+                  <button type="submit" class="segmento-white-btn"
+                          [disabled]="!cashform.form.valid">Сохранить</button>
+                  <button type="button" class="segmento-red-btn" (click)="hideModal()">Отменить</button>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Edit modal dialog-->

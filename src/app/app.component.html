@@ -1,18 +1,10 @@
-<!--
-<header>
-  <div class="logo">
-    <img src="/assets/images/logo.png" alt="Responsive image">
-  </div>
-</header>
- -->
-
  <header>
   <!--Navbar-->
   <nav class="navbar navbar-expand-lg navbar-light white lighten-5 justify-content-between">
       <div class="container">
         <a class="navbar-brand" href="#"><img src="/assets/images/logo.png" alt="Responsive image"></a>
         <div class="total">
-            <span>952.24</span>
+            <span>{{total}}</span>
         </div>
       </div>
   </nav>
@@ -20,96 +12,5 @@
 </header>
 
 <div class="container mt-5">
-    <div class="cash-table">
-        <table class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Средства</th>
-                    <th>Комментарий</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor="let item of itemsPerPage">
-                    <td>{{item.id}}</td>
-                    <td>{{item.cash}}</td>
-                    <td>{{item.description}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!--Bottom Table UI-->
-    <div class="d-flex justify-content-between">
-
-        <button class="segmento-white-btn mt-4" (click)="cashModal.show()">Добавить</button>
-
-        <!--Pagination -->
-        <nav class="my-4 pt-2">
-            <ul class="pagination pagination-circle pg-purple mb-0">
-
-                <!--First-->
-                <li class="page-item disabled clearfix d-none d-md-block"><a class="page-link">First</a></li>
-
-                <!--Arrow left-->
-                <li class="page-item disabled">
-                    <a class="page-link" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                </li>
-
-                <!--Numbers-->
-                <li class="page-item active"><a class="page-link">1</a></li>
-                <li class="page-item"><a class="page-link">2</a></li>
-                <li class="page-item"><a class="page-link">3</a></li>
-                <li class="page-item"><a class="page-link">4</a></li>
-                <li class="page-item"><a class="page-link">5</a></li>
-
-                <!--Arrow right-->
-                <li class="page-item">
-                    <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-                </li>
-
-                <!--First-->
-                <li class="page-item clearfix d-none d-md-block"><a class="page-link">Last</a></li>
-
-            </ul>
-        </nav>
-        <!--/Pagination -->
-
-    </div>
-  <!--Bottom Table UI-->
-
+    <app-table (totalChange)="setTotal($event)"></app-table>
 </div>
-
-<div mdbModal #cashModal="mdb-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myCashModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <h1>Запись #</h1>
-            <input type="number" step=0.1 min=-1000.00 max=1000.00 class="mt-4">
-            <textarea maxlength="512" class="modal-des mt-2"></textarea>
-            <div class="d-flex justify-content-between mt-4">
-                <button type="button" class="segmento-white-btn">Сохранить</button>
-                <button type="button" class="segmento-red-btn" (click)="cashModal.hide()">Отменить</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<p>
-        <span mdbTooltip="Hello there! I was triggered manually" triggers="" #pop="mdb-tooltip">
-          This text has attached tooltip
-        </span>
-      </p>
-      
-      <button type="button" class="btn btn-success waves-light" (click)="pop.show()" mdbRippleRadius>
-        Show
-      </button>
-      <button type="button" class="btn btn-warning waves-light" (click)="pop.hide()" mdbRippleRadius>
-        Hide
-      </button>

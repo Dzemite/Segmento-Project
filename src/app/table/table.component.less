@@ -1,0 +1,93 @@
+@import '../../assets/colors/colors';
+
+.cash-table {
+    min-height: 610px;
+    border: 1px solid grey;
+}
+table {
+  margin-bottom: 0;
+}
+thead {
+    border-bottom: 3px solid grey;
+}
+#tableId {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#tableDesc {
+  width: 800px;
+}
+
+.modal-content {
+    border-top: 6px solid @primary-color;
+    width: 500px;
+    height: 400px;
+    padding: 30px 50px;
+
+    h1 {
+        text-align: center;
+    }
+
+    input {
+        border: 1px solid lightgrey;
+        border-radius: 6px;
+    }
+    .modal-des {
+        border: 1px solid lightgrey;
+        border-radius: 6px;
+        height: 120px;
+        resize: none;
+    }
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  height: 100%;
+  background-color: @primary-color;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 122%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: -5px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent @primary-color transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
