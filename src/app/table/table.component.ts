@@ -3,6 +3,12 @@ import { CashDataService } from '../services/cash-data.service';
 import { Cash } from '../entities/cash';
 import { ModalDirective } from 'angular-bootstrap-md';
 
+enum sorts {
+  id = 1,
+  cashDirect = 2,
+  cashReverce = -2
+}
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -19,6 +25,9 @@ export class TableComponent implements OnInit{
   private elementsPerPage: number = 10;     //Number of items per page
   private numberOfPages: number;            //Number of pages
 
+
+  private sortType: number;
+
   @ViewChild('cashModal')
   modal: ModalDirective;
   @ViewChild('cash')
@@ -31,7 +40,9 @@ export class TableComponent implements OnInit{
   @Output()
   totalChange = new EventEmitter<number>();
 
-  constructor(private cashDataService: CashDataService) { }
+  constructor(
+    private cashDataService: CashDataService
+  ) { }
 
   ngOnInit() {
     this.data = this.cashDataService.getData();
@@ -70,6 +81,28 @@ export class TableComponent implements OnInit{
     this.totalChange.emit(this.totalCash);
   }
 
+  sortByIndex() {
+    if (!this.data) return;
+
+    this.data.sort((a, b) => {
+      return a.id - b.id;
+    });
+    this.setItemsPerPage();
+    this.sortType = sorts.id;
+
+  }
+  sortByCash() {
+    if (!this.data) return;
+
+    let type: number = 0;
+    (this.sortType === sorts.cashDirect) ? type = sorts.cashReverce : type = sorts.cashDirect;
+    this.data.sort((a: Cash, b: Cash) => {
+      return type * ( a.cash - b.cash );
+    });
+    this.setItemsPerPage();
+    this.sortType = type;
+  }
+
   // Functions for modal dialog
   showModal() {
     this.cashRecord = new Cash(undefined, undefined, undefined);
@@ -87,7 +120,7 @@ export class TableComponent implements OnInit{
     this.modal.hide();
   }
 
-  onSubmit() {console.log(this.cashRecord);
+  onSubmit() {
     if (!this.cashRecord.cash && !this.cashRecord.description)
       return;
 

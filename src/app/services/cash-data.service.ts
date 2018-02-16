@@ -28,7 +28,7 @@ export class CashDataService {
   }
 
   public editData(item: Cash) {
-    if (!item.id) return;console.log('edit ' + item.id);
+    if (!item.id) return;
 
     data.forEach(element => {
       if (element.id === item.id) {

@@ -2,8 +2,8 @@
     <table class="table table-striped table-bordered table-responsive-md" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>id <i class="fa fa-sort-down" aria-hidden="true"></i></th>
-                <th>Средства <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th>id <i class="fa fa-sort-down" aria-hidden="true" (click)="sortByIndex()"></i></th>
+                <th>Средства <i class="fa fa-sort" aria-hidden="true" (click)="sortByCash()"></i></th>
                 <th>Комментарий</th>
             </tr>
         </thead>
@@ -43,7 +43,7 @@
               aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form (ngSubmit)="onSubmit()" #cashform="ngForm" novalidate>
+            <form (ngSubmit)="onSubmit(); cashform.reset();" #cashform="ngForm" novalidate>
 
               <h1 *ngIf="cashRecord.id">Запись #{{cashRecord.id}}</h1>
               <h1 *ngIf="!cashRecord.id">Новая запись</h1>
@@ -58,7 +58,7 @@
               </div>
 
               <div class="popup">
-                <textarea maxlength="512" class="modal-des mt-2 form-control" [(ngModel)]="cashRecord.description"
+                <textarea maxlength="512" placeholder="Комментарий" class="modal-des mt-2 form-control" [(ngModel)]="cashRecord.description"
                           name="description" #desc="ngModel" customText='^[а-яА-ЯёЁa-zA-Z0-9!?";:.,\s]+$' required></textarea>
                 <span class="popuptext show"  id="myPopup2"
                       *ngIf="desc.invalid && (desc.dirty || desc.touched)">
@@ -69,7 +69,7 @@
               <div class="d-flex justify-content-between mt-4">
                   <button type="submit" class="segmento-white-btn"
                           [disabled]="!cashform.form.valid">Сохранить</button>
-                  <button type="button" class="segmento-red-btn" (click)="hideModal()">Отменить</button>
+                  <button type="button" class="segmento-red-btn" (click)="hideModal(); cashform.reset();">Отменить</button>
               </div>
             </form>
         </div>
