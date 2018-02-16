@@ -10,7 +10,7 @@
 
         <tbody>
             <tr *ngFor="let item of itemsPerPage">
-                <td id="tableId"   (click)="showEditModal(item)">{{item.id}}</td>
+                <td id="tableId"   (click)="cashform.reset(); showEditModal(item);">{{item.id}}</td>
                 <td id="tableCash">{{item.cash}}</td>
                 <td id="tableDesc">{{item.description}}</td>
             </tr>
@@ -21,7 +21,7 @@
 <!--Bottom Table UI-->
 <div class="d-flex justify-content-between">
 
-    <button class="segmento-white-btn mt-4" (click)="showModal()">Добавить</button>
+    <button class="segmento-white-btn mt-4" (click)="cashform.reset(); showModal();">Добавить</button>
 
     <!--Pagination -->
     <nav class="my-4 pt-2">
@@ -43,7 +43,7 @@
               aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form (ngSubmit)="onSubmit(); cashform.reset();" #cashform="ngForm" novalidate>
+            <form (ngSubmit)="onSubmit()" #cashform="ngForm" novalidate>
 
               <h1 *ngIf="cashRecord.id">Запись #{{cashRecord.id}}</h1>
               <h1 *ngIf="!cashRecord.id">Новая запись</h1>
@@ -69,7 +69,7 @@
               <div class="d-flex justify-content-between mt-4">
                   <button type="submit" class="segmento-white-btn"
                           [disabled]="!cashform.form.valid">Сохранить</button>
-                  <button type="button" class="segmento-red-btn" (click)="hideModal(); cashform.reset();">Отменить</button>
+                  <button type="button" class="segmento-red-btn" (click)="hideModal()">Отменить</button>
               </div>
             </form>
         </div>
